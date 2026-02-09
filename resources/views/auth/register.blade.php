@@ -11,8 +11,8 @@
 
     <div class="login-card">
         <div class="login-header">
-            <h2>Welcome Back</h2>
-            <p>Silakan login untuk mengelola data siswa</p>
+            <h2>Hello, Welcome!</h2>
+            <p>Silakan register untuk login</p>
             @if(session()->has('loginError'))
             <div style="color: #991b1b; background-color: #fee2e2; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 0.85rem;">
                 {{ session('loginError') }}
@@ -26,21 +26,26 @@
             @endif
         </div>
 
-        <form id="loginForm" action="{{ route('proses') }}" method="POST">
+        <form id="loginForm" action="{{ route('proses-register') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="nama@sekolah.com" required>
+                <input type="email" id="email" name="email" placeholder="nama@sekolah.com" required /> 
             </div>
 
             <div class="form-group">
+                <label for="username">Username</label>
+                <input type="username" name="username" id="username" placeholder="your username" required />
+            </div>  
+
+            <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <input type="password" id="password" name="password" placeholder="••••••••" required />
             </div>
 
             <div class="options">
                 <label><input type="checkbox"> Remember me</label>
-                <a href="{{ route('register') }}">Forgot Password?</a>
+                <a href="{{ route('login') }}">Forgot Password?</a>
             </div>
 
             <button type="submit" class="btn-login" id="btnLogin">Login Sekarang</button>

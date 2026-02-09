@@ -11,8 +11,15 @@
 
 <div class="container">
     <div class="header">
+        <h2 style="font-size: 25px;">Halo! {{ auth()->user()->username }}</h2>
         <h2>Daftar Siswa</h2>
         <a href="{{ route('add') }}" class="btn-add">+ Tambah Siswa</a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn-logout">
+                Logout
+            </button>
+        </form>
     </div>
 
     @if (session('success'))

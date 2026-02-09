@@ -8,6 +8,14 @@ use App\Http\Controllers\authController;
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [authController::class, 'login'])->name('login');
     Route::post('/', [authController::class, 'prosesLogin'])->name('proses');
+
+    //register
+    Route::get('/register', [authController::class, 'register'])->name('register');
+    Route::post('/register', [authController::class, 'prosesRegister'])->name('proses-register');
+
+    //logout
+    Route::post('/logout', [siswaController::class, 'logout'])
+    ->name('logout');
 });
 
 // Crud

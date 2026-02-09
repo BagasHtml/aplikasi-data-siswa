@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Auth;
 
 class siswaController extends Controller
 {
@@ -89,5 +90,15 @@ class siswaController extends Controller
         $siswa->delete();
 
         return redirect()->route("siswa")->with("success menghapus data siswa!");
+    }
+
+    public function logout(Request $request) 
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect(route('login'))->with('success', 'berhasil logout');
     }
 }
