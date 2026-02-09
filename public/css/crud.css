@@ -1,0 +1,147 @@
+:root {
+    --primary-green: #10b981;
+    --header-gradient: linear-gradient(
+        135deg,
+        rgba(16, 185, 129, 0.9) 0%,
+        rgba(5, 150, 105, 0.8) 100%
+    );
+    --bg-color: #f0fdf4; /* Hijau sangat muda untuk background */
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #064e3b;
+    --text-muted: #374151;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+        radial-gradient(
+            at 100% 100%,
+            rgba(52, 211, 153, 0.1) 0px,
+            transparent 50%
+        );
+    margin: 0;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-add {
+    background: var(--primary-green);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: scale(1.05);
+    background: #059669;
+}
+
+/* Table Card & Header Transparent */
+.table-wrapper {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px); /* Efek Blur Kaca */
+    border-radius: 25px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Header Hijau Transparent */
+thead tr {
+    background: var(--header-gradient);
+    backdrop-filter: blur(5px);
+}
+
+th {
+    padding: 22px;
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: white; /* Tulisan putih di header hijau */
+    font-weight: 600;
+}
+
+/* Baris Tabel */
+td {
+    padding: 20px;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: rgba(
+        16,
+        185,
+        129,
+        0.05
+    ); /* Highlight hijau tipis saat hover */
+}
+
+/* Badge Kelas */
+.badge-kelas {
+    background: rgba(16, 185, 129, 0.2);
+    color: #047857;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Action Buttons Custom */
+.btn-edit {
+    background-color: #f1f5f9;
+    color: var(--edit);
+}
+
+.btn-edit:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-delete {
+    background-color: #fff1f2;
+    color: #be123c;
+}
+
+.btn-delete:hover {
+    background-color: #ffe4e6;
+    color: #9f1239;
+}
