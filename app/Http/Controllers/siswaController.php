@@ -14,7 +14,7 @@ class siswaController extends Controller
     public function index()
     {
         $siswa = Siswa::all();
-        return view('siswa', compact('siswa'));
+        return view('Crud.siswa', compact('siswa'));
     }
 
     /**
@@ -22,7 +22,7 @@ class siswaController extends Controller
      */
     public function create()
     {
-        return view("add");
+        return view("Crud.add");
     }
 
     /**
@@ -60,7 +60,7 @@ class siswaController extends Controller
     public function edit(string $id)
     {
         $siswa = Siswa::findOrFail($id);
-        return view("edit", compact("siswa"));
+        return view("Crud.edit", compact("siswa"));
     }
 
     /**
@@ -92,13 +92,12 @@ class siswaController extends Controller
         return redirect()->route("siswa")->with("success menghapus data siswa!");
     }
 
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect(route('login'))->with('success', 'berhasil logout');
+        return redirect()->route('login')->with('success', 'berhasil logout');
     }
 }
