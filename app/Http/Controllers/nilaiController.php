@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\nilai;
 use Illuminate\Http\Request;
 
 class nilaiController extends Controller
@@ -11,7 +12,8 @@ class nilaiController extends Controller
      */
     public function index()
     {
-        return view('nilai.nilai');
+        $nilai = nilai::all();
+        return view('nilai.nilai', compact('nilai'));
     }
 
     /**
