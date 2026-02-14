@@ -67,6 +67,20 @@
                         </div>
                     </a>
 
+                    {{-- Menu 3: Absensi Siswa --}}
+                    <a href="{{ route('absensi') }}" class="menu-item secondary">
+                        <div class="icon-box">
+                            <i class="fas fa-person"></i>
+                        </div>
+                        <div class="text-content">
+                            <h3>Absensi Siswa</h3>
+                            <p>Absensi Tiap Siswa</p>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-rigt"></i>
+                        </div>
+                    </a>
+
                     <!-- Menu 3: Logout -->
                     <form action="{{ route('logout') }}" method="POST" id="logout-form">
                         @csrf

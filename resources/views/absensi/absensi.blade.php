@@ -28,12 +28,12 @@
         <main class="content-card">
             <div class="table-header">
                 <div>
-                    <h2>Daftar Siswa</h2>
-                    <p>Total data: {{ count($siswa) }} siswa terdaftar</p>
+                    <h2>Absensi Siswa</h2>
+                    <p>Total Siswa: {{ count($absensi) }} yang Hadir</p>
                 </div>
-                <a href="{{ route('add') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Siswa
-                </a>
+                <button class="btn-add" style="background: green;">
+                   <i class="fas fa-plus"></i> Simpan
+                </button>
             </div>
 
             @if (session('success'))
@@ -48,32 +48,28 @@
                         <tr>
                             <th>#</th>
                             <th>Nama Lengkap</th>
-                            <th>Umur</th>
-                            <th>Alamat</th>
-                            <th>Kelas</th>
+                            <th>kelas</th>
+                            <th>Waktu Kehadiran</th>
+                            <th>Tanggal Kehadiran</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($siswa as $s)
+                        @foreach ($absensi as $a)
                         <tr>
                             <td class="text-muted">{{ $loop->iteration }}</td>
-                            <td class="font-bold">{{ $s->nama }}</td>
-                            <td><span class="age-badge">{{ $s->umur }} Thn</span></td>
-                            <td class="text-truncate">{{ $s->alamat }}</td>
-                            <td><span class="badge-kelas">{{ $s->kelas }}</span></td>
+                            <td class="font-bold">{{ $a->nama }}</td>
+                            <td><span class="age-badge">{{ $a->kelas }} Thn</span></td>
+                            <td class="text-truncate">{{ $a->waktu_kehadiran }}</td>
+                            <td><span class="badge-kelas">{{ $a->tanggal_kehadiran }}</span></td>
                             <td class="actions">
-                                <a href="{{ route('edit', $s->id) }}" class="btn-action edit" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                
-                                <form action="{{ route('delete', $s->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-action delete" title="Hapus">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
+                                <form action="" method="POST">
+                                    <input type="time" name="waktu_kehadiran" required />
+                                    
+                                    <br />
+
+                                    <input type="date" name="tanggal_kehadiran" required />         
+                                </form>                       
                             </td>
                         </tr>
                         @endforeach

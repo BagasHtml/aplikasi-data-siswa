@@ -22,10 +22,7 @@
             </div>
             <nav class="nav-links">
                 <a href="{{ route('dashboard') }}" class="nav-btn"><i class="fas fa-home"></i> Dashboard</a>
-                <form action="{{ route('logout') }}" method="POST" class="inline-form">
                     @csrf
-                    <button type="submit" class="logout-link"><i class="fas fa-power-off"></i> Logout</button>
-                </form>
             </nav>
         </header>
 
@@ -33,10 +30,10 @@
             <div class="table-header">
                 <div>
                     <h2>Nilai Siswa</h2>
-                    <p>Total data: {{ count($nilai) }} siswa terdaftar</p>
+                    <p>Total data: {{ count($nilai) }} Nilai Siswa</p>
                 </div>
-                <a href="{{ route('add') }}" class="btn-add">
-                    <i class="fas fa-plus"></i> Tambah Siswa
+                <a href="{{ route('tambah.nilai') }}" class="btn-add">
+                    <i class="fas fa-plus"></i> Tambah Data Nilai
                 </a>
             </div>
 
@@ -67,11 +64,11 @@
                             <td class="text-truncate">{{ $n->nilai }}</td>
                             <td><span class="badge-kelas">{{ $n->rata_rata }}</span></td>
                             <td class="actions">
-                                <a href="{{ route('edit', $n->id) }}" class="btn-action edit" title="Edit">
+                                <a href="{{ route('edit.nilai', $n->id) }}" class="btn-action edit" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 
-                                <form action="{{ route('delete', $n->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <form action="{{ route('hapus', $n->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-action delete" title="Hapus">

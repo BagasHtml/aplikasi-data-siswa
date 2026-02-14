@@ -3,55 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistem Siswa</title>
+    <title>Login - Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 <body>
-
-    <div class="login-card">
-        <div class="login-header">
-            <h2>Hello, Welcome!</h2>
-            <p>Silakan register untuk login</p>
-            @if(session()->has('loginError'))
-            <div style="color: #991b1b; background-color: #fee2e2; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 0.85rem;">
-                {{ session('loginError') }}
-            </div>
-            @endif
-
-            @if($errors->any())
-            <div style="color: #991b1b; font-size: 0.8rem; margin-bottom: 10px;">
-                Pastikan semua kolom terisi dengan benar!
-            </div>
-            @endif
-        </div>
-
-        <form id="loginForm" action="{{ route('proses-register') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="nama@sekolah.com" required /> 
-            </div>
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="username" name="username" id="username" placeholder="your username" required />
-            </div>  
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required />
-            </div>
-
-            <div class="options">
-                <label><input type="checkbox"> Remember me</label>
-                <a href="{{ route('login') }}">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="btn-login" id="btnLogin">Login Sekarang</button>
-        </form>
+    <div class="bg-decoration">
+        <div class="blur-circle"></div>
+        <div class="blur-circle bottom-right"></div>
     </div>
 
-    <script src="{{ asset('js/script.js') }}"></script>
+    <div class="auth-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-icon">
+                    <i class="fas fa-person"></i>
+                </div>
+                <h2>Hello, Welcome!</h2>
+                <p>Silakan Daftar untuk mengelola data siswa</p>
+            </div>
+
+            @if(session()->has('loginError'))
+                <div class="alert-danger animate-shake">
+                    <i class="fas fa-exclamation-circle"></i> {{ session('loginError') }}
+                </div>
+            @endif
+
+            <form action="{{ route('proses-register') }}" method="POST" id="loginForm">
+                @csrf
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-container">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="nama@sekolah.com" required value="{{ old('email') }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="username" id="username" placeholder="username" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <label class="checkbox-container">
+                        <input type="checkbox"> 
+                        <span class="checkmark"></span> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span>Login Sekarang</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                sudah punya akun? <a href="{{ route('login') }}">Login Sekarang</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

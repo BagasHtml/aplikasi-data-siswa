@@ -21,7 +21,7 @@ class nilaiController extends Controller
      */
     public function create()
     {
-        //
+        return view('nilai.add');
     }
 
     /**
@@ -29,7 +29,20 @@ class nilaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validasi = $request->validate([
+            "nama" => ['required'],
+            "mata_pelajaran" => ['required'],
+            "nilai" => ['required'],
+            "rata_rata" => ['required'],
+        ]);
+
+        nilai::create($request->all());
+
+        if ($validasi) {
+            return redirect()->route('nilai')->with('success', 'data siswa berhasil ditambahkan');
+        }
+
+        return back()->withErrors('error', 'gagal menambahkan');
     }
 
     /**
@@ -45,7 +58,8 @@ class nilaiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $nilai = nilai::findOrFail($id);
+        return view('nilai.edit', compact('nilai'));
     }
 
     /**
@@ -53,7 +67,17 @@ class nilaiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validasi = $request->validate([
+            'nama' => ['required'],
+            'mata_pelajaran' => ['required'],
+            'nilai' => ['required'],
+            'rata_rata' => ['required'],
+        ]);
+
+        $validasi = nilai::findOrFail($id);
+        $validasi->update($request->all());
+
+        return redirect()->route('nilai')->with('success', 'nilai berhasil diubah');
     }
 
     /**
@@ -61,6 +85,9 @@ class nilaiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $nilai = nilai::findOrFail($id);
+        $nilai->delete();
+
+        return redirect()->route('nilai')->with('success', 'nilai siswa berhasil dihapus');
     }
 }
