@@ -24,60 +24,56 @@
                 <a href="{{ route('dashboard') }}" class="nav-btn"><i class="fas fa-home"></i> Dashboard</a>
             </nav>
         </header>
-
         <main class="content-card">
-            <div class="table-header">
-                <div>
-                    <h2>Absensi Siswa</h2>
-                    <p>Total Siswa: {{ count($absensi) }} yang Hadir</p>
+            <form action="{{ route('proses.absensi') }}" method="POST">
+                @csrf
+                @method('PUT')
+            
+                <div class="table-header">
+                    <div>
+                        <h2>Absensi Siswa</h2>
+                        <p>Total Siswa: {{ count($absensi) }} yang Hadir</p>
+                    </div>
+                    <button type="submit" class="btn-add" style="background: green; border:none; cursor:pointer;">
+                        <i class="fas fa-save"></i> Simpan Semua Perubahan
+                    </button>
                 </div>
-                <button class="btn-add" style="background: green;">
-                   <i class="fas fa-plus"></i> Simpan
-                </button>
-            </div>
-
-            @if (session('success'))
-                <div class="alert animate-pop">
-                    <i class="fas fa-check-circle"></i> {{ session('success') }}
+            
+                @if (session('success'))
+                    <div class="alert animate-pop">
+                        <i class="fas fa-check-circle"></i> {{ session('success') }}
+                    </div>
+                @endif
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Lengkap</th>
+                                <th>Kelas</th>
+                                <th>Waktu & Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($absensi as $a)
+                            <tr>
+                                <td class="text-muted">{{ $loop->iteration }}</td>
+                                <td class="font-bold">{{ $a->nama }}</td>
+                                <td><span class="age-badge">{{ $a->kelas }}</span></td>
+                                <td class="actions">
+                                    <div style="display: flex; gap: 5px;">
+                                        <input type="time" name="absensi[{{ $a->id }}][waktu]" value="{{ $a->waktu_kehadiran }}" required />
+                                        <input type="date" name="absensi[{{ $a->id }}][tanggal]" value="{{ $a->tanggal_kehadiran }}" required />
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            @endif
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nama Lengkap</th>
-                            <th>kelas</th>
-                            <th>Waktu Kehadiran</th>
-                            <th>Tanggal Kehadiran</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($absensi as $a)
-                        <tr>
-                            <td class="text-muted">{{ $loop->iteration }}</td>
-                            <td class="font-bold">{{ $a->nama }}</td>
-                            <td><span class="age-badge">{{ $a->kelas }} Thn</span></td>
-                            <td class="text-truncate">{{ $a->waktu_kehadiran }}</td>
-                            <td><span class="badge-kelas">{{ $a->tanggal_kehadiran }}</span></td>
-                            <td class="actions">
-                                <form action="" method="POST">
-                                    <input type="time" name="waktu_kehadiran" required />
-                                    
-                                    <br />
-
-                                    <input type="date" name="tanggal_kehadiran" required />         
-                                </form>                       
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </div>
+        </form> </main>
+        
 
     <script src="{{ asset('js/script.js') }}"></script>
 </body>

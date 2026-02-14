@@ -51,9 +51,20 @@ class absensiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $absensi = $request->input('absensi');
+
+        if ($absensi) {
+            foreach ($absensi as $id => $kolom) {
+                Absensi::where('id', $id)->update([
+                    'waktu_kehadiran' => $kolom['waktu'],
+                    'tanggal_kehadiran' => $kolom['tanggal'],
+                ]);
+            }
+
+            return redirect()->route('absensi')->with('success', 'absensi kehadiran siswa berhasil diinput!');
+        }
     }
 
     /**
