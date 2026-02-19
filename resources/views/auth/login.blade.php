@@ -6,7 +6,7 @@
     <title>Login - Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url('css/auth.css') }}">
 </head>
 <body>
     <div class="bg-decoration">
@@ -24,9 +24,9 @@
                 <p>Silakan login untuk mengelola data siswa</p>
             </div>
 
-            @if(session()->has('loginError'))
+            @if(session('error'))
                 <div class="alert-danger animate-shake">
-                    <i class="fas fa-exclamation-circle"></i> {{ session('loginError') }}
+                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
                 </div>
             @endif
 

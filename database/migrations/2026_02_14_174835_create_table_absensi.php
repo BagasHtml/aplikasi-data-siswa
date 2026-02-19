@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('table_absensi', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
+            $table->foreignId('id_siswa')->nullable()->index();
             $table->string('nama', 50);
             $table->string('kelas', 40);
             $table->time('waktu_kehadiran');

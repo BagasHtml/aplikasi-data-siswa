@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
 
-class absensiController extends Controller
+use function Laravel\Prompts\select;
+
+class AbsensiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $absensi = Absensi::all();
+        $absensi = Absensi::select('id', 'nama', 'kelas', 'waktu_kehadiran', 'tanggal_kehadiran')->paginate(32);
         return view('absensi.absensi', compact('absensi'));
     }
 
@@ -21,7 +23,7 @@ class absensiController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -29,7 +31,17 @@ class absensiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $absensi = $request->validate([
+            'simpan' => ['required'],
+        ]);
+
+        $absensi = Absensi::create($request->select('id', 'nama', 'kelas', 'waktu_kehadiran', 'tanggal_kehadiran')->paginate(30));
+
+        if ($absensi) {
+            return redirect()->route('absensi')->with('success', 'berhasil disimpan');
+        } else {
+            return back()->withErrors('error', 'gagal menyimpan data siswa');
+        }
     }
 
     /**
@@ -37,7 +49,7 @@ class absensiController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -51,20 +63,9 @@ class absensiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
-        $absensi = $request->input('absensi');
-
-        if ($absensi) {
-            foreach ($absensi as $id => $kolom) {
-                Absensi::where('id', $id)->update([
-                    'waktu_kehadiran' => $kolom['waktu'],
-                    'tanggal_kehadiran' => $kolom['tanggal'],
-                ]);
-            }
-
-            return redirect()->route('absensi')->with('success', 'absensi kehadiran siswa berhasil diinput!');
-        }
+        //
     }
 
     /**

@@ -6,7 +6,13 @@
     <title>Manajemen Siswa | Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/crud.css') }}">
+    <link rel="stylesheet" href="{{ url('css/crud.css') }}">
+    <style>
+        table
+        {
+            overflow-y: hidden; 
+        }
+    </style>
 </head>
 <body>
     <div class="bg-decoration">
@@ -34,7 +40,7 @@
                         <h2>Absensi Siswa</h2>
                         <p>Total Siswa: {{ count($absensi) }} yang Hadir</p>
                     </div>
-                    <button type="submit" class="btn-add" style="background: green; border:none; cursor:pointer;">
+                    <button type="submit" class="btn-add" style="background: green; border:none; cursor:pointer;" name="simpan">
                         <i class="fas fa-save"></i> Simpan Semua Perubahan
                     </button>
                 </div>
@@ -52,7 +58,7 @@
                                 <th>#</th>
                                 <th>Nama Lengkap</th>
                                 <th>Kelas</th>
-                                <th>Waktu & Tanggal</th>
+                                <th style="position: relative; right: -30px;">Waktu & Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,8 +69,8 @@
                                 <td><span class="age-badge">{{ $a->kelas }}</span></td>
                                 <td class="actions">
                                     <div style="display: flex; gap: 5px;">
-                                        <input type="time" name="absensi[{{ $a->id }}][waktu]" value="{{ $a->waktu_kehadiran }}" required />
-                                        <input type="date" name="absensi[{{ $a->id }}][tanggal]" value="{{ $a->tanggal_kehadiran }}" required />
+                                        <input type="time" name="absensi[{{ $a->id }}][waktu]" value="{{ $a->waktu_kehadiran }}" class="absen" required />
+                                        <input type="date" name="absensi[{{ $a->id }}][tanggal]" value="{{ $a->tanggal_kehadiran }}" class="absen" required />
                                     </div>
                                 </td>
                             </tr>

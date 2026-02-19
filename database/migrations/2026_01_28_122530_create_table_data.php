@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('table_data', function (Blueprint $table) {
             $table->id()->primary()->autoIncrement();
+            $table->foreignId('id_absensi')->nullable()->index();
             $table->string('nama', 255);
             $table->string('umur', 255);
             $table->string("alamat", 255);

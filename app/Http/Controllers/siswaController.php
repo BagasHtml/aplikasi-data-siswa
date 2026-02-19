@@ -13,7 +13,7 @@ class siswaController extends Controller
      */
     public function index()
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::select('id', 'id_absensi', 'nama', 'umur', 'alamat', 'kelas')->paginate(30);
         return view('Crud.siswa', compact('siswa'));
     }
 
