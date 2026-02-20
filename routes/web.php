@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\absensiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\siswaController;
 use App\Http\Controllers\authController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\nilaiController;
-use App\Models\nilai;
 
 // login
 Route::middleware(['guest'])->group(function () {
@@ -50,5 +49,5 @@ Route::middleware(['auth'])->group(function() {
     // Absensi
     Route::get('/absensi/siswa', [AbsensiController::class, 'index'])->name('absensi');
 
-    Route::put('/absensi/siswa', [absensiController::class, 'store'])->name('proses.absensi');
+    Route::put('/absensi/siswa', [absensiController::class, 'proses'])->name('proses.absensi');
 });

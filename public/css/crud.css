@@ -247,8 +247,7 @@ td {
     animation: pop 0.4s ease-out;
 }
 
-.absen
-{
+.absen {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -257,3 +256,30 @@ td {
     left: -110px;
 }
 
+table {
+    overflow-y: hidden;
+}
+
+/* ── Dropdown Filter Kelas ── */
+.filter-select {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: #6366f1;
+}
+
+.table-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

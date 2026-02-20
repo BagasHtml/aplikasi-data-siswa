@@ -7,12 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url('css/crud.css') }}">
-    <style>
-        table
-        {
-            overflow-y: hidden; 
-        }
-    </style>
 </head>
 <body>
     <div class="bg-decoration">
@@ -30,27 +24,60 @@
                 <a href="{{ route('dashboard') }}" class="nav-btn"><i class="fas fa-home"></i> Dashboard</a>
             </nav>
         </header>
+
         <main class="content-card">
-            <form action="{{ route('proses.absensi') }}" method="POST">
+
+            <form action="{{ route('proses.absensi') }}" method="POST" id="absensi-form">
                 @csrf
                 @method('PUT')
-            
+
                 <div class="table-header">
                     <div>
                         <h2>Absensi Siswa</h2>
-                        <p>Total Siswa: {{ count($absensi) }} yang Hadir</p>
+                        <p>
+                            @if (request('kelas'))
+                                Kelas <strong>{{ request('kelas') }}</strong> &mdash;
+                            @endif
+                            Total Siswa: {{ count($absensi) }} yang Hadir
+                        </p>
                     </div>
-                    <button type="submit" class="btn-add" style="background: green; border:none; cursor:pointer;" name="simpan">
-                        <i class="fas fa-save"></i> Simpan Semua Perubahan
-                    </button>
+
+                    <div class="table-header-actions">
+
+                        <form method="GET" action="{{ route('absensi') }}" id="filter-form">
+                            <select
+                                name="kelas"
+                                class="filter-select"
+                                onchange="document.getElementById('filter-form').submit()"
+                                title="Filter berdasarkan kelas"
+                            >
+                                <option value="">-- Semua Kelas --</option>
+                                @foreach ($kelasList as $kelas)
+                                    <option value="{{ $kelas }}" {{ request('kelas') == $kelas ? 'selected' : '' }}>
+                                        {{ $kelas }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </form>
+
+                        <button
+                            type="submit"
+                            form="absensi-form"
+                            class="btn-add"
+                            style="background: green; border: none; cursor: pointer;"
+                            name="simpan"
+                        >
+                            <i class="fas fa-save"></i> Simpan Semua Perubahan
+                        </button>
+                    </div>
                 </div>
-            
+
                 @if (session('success'))
                     <div class="alert animate-pop">
                         <i class="fas fa-check-circle"></i> {{ session('success') }}
                     </div>
                 @endif
-                
+
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -62,24 +89,48 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($absensi as $a)
-                            <tr>
-                                <td class="text-muted">{{ $loop->iteration }}</td>
-                                <td class="font-bold">{{ $a->nama }}</td>
-                                <td><span class="age-badge">{{ $a->kelas }}</span></td>
-                                <td class="actions">
-                                    <div style="display: flex; gap: 5px;">
-                                        <input type="time" name="absensi[{{ $a->id }}][waktu]" value="{{ $a->waktu_kehadiran }}" class="absen" required />
-                                        <input type="date" name="absensi[{{ $a->id }}][tanggal]" value="{{ $a->tanggal_kehadiran }}" class="absen" required />
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                            @forelse ($absensi as $a)
+                                <tr>
+                                    <td class="text-muted">{{ $loop->iteration }}</td>
+                                    <td class="font-bold">{{ $a->nama }}</td>
+                                    <td><span class="age-badge">{{ $a->kelas }}</span></td>
+                                    <td class="actions">
+                                        <div style="display: flex; gap: 5px;">
+                                            <input
+                                                type="time"
+                                                name="absensi[{{ $a->id }}][waktu]"
+                                                value="{{ $a->waktu_kehadiran }}"
+                                                class="absen"
+                                                required
+                                            />
+                                            <input
+                                                type="date"
+                                                name="absensi[{{ $a->id }}][tanggal]"
+                                                value="{{ $a->tanggal_kehadiran }}"
+                                                class="absen"
+                                                required
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 24px; color: #9ca3af;">
+                                        <i class="fas fa-inbox" style="font-size: 24px; display: block; margin-bottom: 8px;"></i>
+                                        Tidak ada data absensi
+                                        @if (request('kelas'))
+                                            untuk kelas <strong>{{ request('kelas') }}</strong>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-        </form> </main>
-        
+            </form>
+
+        </main>
+    </div>
 
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
