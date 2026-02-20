@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function() {
     Route::delete('/delete/{id}/nilai', [nilaiController::class, 'destroy'])->name('hapus');
 
     // Absensi
-    Route::get('/absensi/siswa', [AbsensiController::class, 'index'])->name('absensi');
+    Route::get('/absensi/siswa', [AbsensiController::class, 'index'])->name('absensi.index');
 
     Route::put('/absensi/siswa', [absensiController::class, 'proses'])->name('proses.absensi');
 });

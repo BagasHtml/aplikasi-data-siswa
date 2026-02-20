@@ -7,6 +7,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url('css/crud.css') }}">
+    <style>
+        table {
+            overflow-y: hidden;
+        }
+
+        /* ── Dropdown Filter Kelas ── */
+        .filter-select {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1.5px solid #d1d5db;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .filter-select:hover,
+        .filter-select:focus {
+            border-color: #6366f1;
+        }
+
+        .table-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="bg-decoration">
@@ -27,6 +56,9 @@
 
         <main class="content-card">
 
+            {{-- ✅ FIX: Form filter GET di LUAR form POST, tidak boleh nested --}}
+            <form method="GET" action="{{ route('absensi.index') }}" id="filter-form"></form>
+
             <form action="{{ route('proses.absensi') }}" method="POST" id="absensi-form">
                 @csrf
                 @method('PUT')
@@ -44,21 +76,21 @@
 
                     <div class="table-header-actions">
 
-                        <form method="GET" action="{{ route('absensi') }}" id="filter-form">
-                            <select
-                                name="kelas"
-                                class="filter-select"
-                                onchange="document.getElementById('filter-form').submit()"
-                                title="Filter berdasarkan kelas"
-                            >
-                                <option value="">-- Semua Kelas --</option>
-                                @foreach ($kelasList as $kelas)
-                                    <option value="{{ $kelas }}" {{ request('kelas') == $kelas ? 'selected' : '' }}>
-                                        {{ $kelas }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </form>
+                        {{-- ✅ FIX: select pakai form="filter-form" agar terhubung ke form GET di atas --}}
+                        <select
+                            name="kelas"
+                            form="filter-form"
+                            class="filter-select"
+                            onchange="document.getElementById('filter-form').submit()"
+                            title="Filter berdasarkan kelas"
+                        >
+                            <option value="">-- Semua Kelas --</option>
+                            @foreach ($kelasList as $kelas)
+                                <option value="{{ $kelas }}" {{ request('kelas') == $kelas ? 'selected' : '' }}>
+                                    {{ $kelas }}
+                                </option>
+                            @endforeach
+                        </select>
 
                         <button
                             type="submit"
